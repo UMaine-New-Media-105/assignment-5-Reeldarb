@@ -1,0 +1,55 @@
+let bubble1;
+let bubble2;
+let bubble3;
+let bubble4;
+let bubble5;
+
+function setup() {
+  createCanvas(960, 540);
+  bubble1 = new Bubble(136, 200, 10, "red", 1);
+  bubble2 = new Bubble(272, 400, 20, "orange", 2);
+  bubble3 = new Bubble(408, 200, 30, "yellow", 3);
+  bubble4 = new Bubble(544, 400, 40, " green", 4);
+  bubble5 = new Bubble(680, 200, 50, "blue", 5);
+}
+
+function draw() {
+  background("black");
+  bubbleDo();
+}
+
+class Bubble {
+  constructor(x, y, d, c,s) {
+    this.x = x;
+    this.y = y;
+    this.d = d;
+    this.c = c;
+    this.s = s;
+  }
+
+  move() {
+    this.x = this.x + random(-2, 2);
+    this.y = this.y + random(-2, 2);
+  }
+  show() {
+    push();
+    stroke(255);
+    strokeWeight(this.s);
+    fill(this.c);
+    ellipse(this.x, this.y, this.d);
+    pop();
+  }
+}
+
+function bubbleDo() {
+  bubble1.move();
+  bubble1.show();
+  bubble2.move();
+  bubble2.show();
+  bubble3.move();
+  bubble3.show();
+  bubble4.move();
+  bubble4.show();
+  bubble5.move();
+  bubble5.show();
+}
