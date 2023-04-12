@@ -1,0 +1,63 @@
+let bubbles = new Array(500);
+
+function setup() {
+  createCanvas(960, 540);
+  for (let i = 0; i < bubbles.length; i++) {
+    let x = random(width);
+    let y = random(height);
+    let d = random(10, 50);
+    let c = color(random(255), random(255), random(255));
+    let s = random(1, 4);
+    let moveX = random(-2, 2);
+    let moveY = random(-2, 2);
+    bubbles[i] = new Bubble(x, y, d, c, s, moveX, moveY);
+  }
+}
+
+function draw() {
+  background("black");
+  for (let i = 0; i < bubbles.length; i++) {
+    bubbles[i].move();
+    bubbles[i].checkBoundaryCollision();
+    bubbles[i].show();
+  }
+}
+
+class Bubble {
+  constructor(x, y, d, c, s, moveX, moveY) {
+    this.x = x;
+    this.y = y;
+    this.d = d;
+    this.c = c;
+    this.s = s;
+    this.moveX = moveX;
+    this.moveY = moveY;
+  }
+
+  move() {
+    this.x += this.moveX;
+    this.y += this.moveY;
+  }
+
+  checkBoundaryCollision() {
+    if (this.x - this.d/2 < 0 && this.moveX < 0) {
+      this.moveX = -this.moveX;
+    } else if (this.x + this.d/2 > width && this.moveX > 0) {
+      this.moveX = -this.moveX;
+    }
+    if (this.y - this.d/2 < 0 && this.moveY < 0) {
+      this.moveY = -this.moveY;
+    } else if (this.y + this.d/2 > height && this.moveY > 0) {
+      this.moveY = -this.moveY;
+    }
+  }
+
+  show() {
+    push();
+    stroke(this.c);
+    strokeWeight(this.s);
+    noFill();
+    ellipse(this.x, this.y, this.d);
+    pop();
+  }
+}
